@@ -316,16 +316,16 @@ func (p *Package) getVersions() ([]Version, error) {
 	}
 	return versions, nil
 }
-
 func getAllPackages(ownerType, owner, repoName, packageName string) ([]Package, error) {
-	var packages []Package
+    var packages []Package
 
-	path := fmt.Sprintf("/%ss/%s/packages?package_type=container", ownerType, owner)
-	params := url.Values{}
-	params.Set("per_page", strconv.Itoa(PER_PAGE))
+    path := fmt.Sprintf("/%ss/%s/packages", ownerType, owner)
+    params := url.Values{}
+    params.Set("per_page", strconv.Itoa(PER_PAGE))
+    params.Set("package_type", "container") // Added this line
 
-	for {
-		resp, err := requestGithubAPI(path, "GET", params, nil)
+    for {
+        resp, err := requestGithubAPI(path, "GET", params, nil)
 		if err != nil {
 			return nil, err
 		}
