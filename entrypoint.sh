@@ -2,46 +2,44 @@
 
 set -e
 
-# Initialize arguments
-set -- --token "$TOKEN"
+ARGS="--token $TOKEN"
 
 if [ "$DRY_RUN" = "true" ]; then
-  set -- "$@" --dry-run
+  ARGS="$ARGS --dry-run"
 fi
 
 if [ -n "$REPOSITORY_OWNER" ]; then
-  set -- "$@" --repo-owner "$REPOSITORY_OWNER"
+  ARGS="$ARGS --repo-owner $REPOSITORY_OWNER"
 fi
 
 if [ -n "$REPOSITORY_NAME" ]; then
-  set -- "$@" --repo-name "$REPOSITORY_NAME"
+  ARGS="$ARGS --repo-name $REPOSITORY_NAME"
 fi
 
 if [ -n "$PACKAGE_NAME" ]; then
-  set -- "$@" --package-name "$PACKAGE_NAME"
+  ARGS="$ARGS --package-name $PACKAGE_NAME"
 fi
 
 if [ -n "$OWNER_TYPE" ]; then
-  set -- "$@" --owner-type "$OWNER_TYPE"
+  ARGS="$ARGS --owner-type $OWNER_TYPE"
 fi
 
 if [ "$DELETE_UNTAGGED" = "false" ]; then
-  set -- "$@" --delete-untagged=false
+  ARGS="$ARGS --delete-untagged=false"
 fi
 
 if [ -n "$KEEP_AT_MOST" ]; then
-  set -- "$@" --keep-at-most "$KEEP_AT_MOST"
+  ARGS="$ARGS --keep-at-most $KEEP_AT_MOST"
 fi
 
 if [ -n "$FILTER_TAGS" ]; then
-  set -- "$@" --filter-tags "$FILTER_TAGS"
+  ARGS="$ARGS --filter-tags $FILTER_TAGS"
 fi
 
 if [ -n "$SKIP_TAGS" ]; then
-  set -- "$@" --skip-tags "$SKIP_TAGS"
+  ARGS="$ARGS --skip-tags $SKIP_TAGS"
 fi
 
-echo "Running with arguments: $*"
+echo "Running with arguments: $ARGS"
 
-# Execute the Go application with the assembled arguments
-exec /workflow-ghcr-cleaner "$@"
+exec /usr/local/bin/workflow-ghcr-cleaner $ARGS
