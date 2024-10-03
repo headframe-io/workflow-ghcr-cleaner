@@ -54,12 +54,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-python@v4
+    - uses: actions/setup-go@v5
       with:
-        python-version: '3.10'
+        python-version: '1.23.2'
 
-    - name: Install dependencies
-      run: pip install -r ${{ github.action_path }}/requirements.txt
+    - name: Build app
+      run: go build
       shell: bash
 
     - name: Run registry cleaner
@@ -77,4 +77,4 @@ runs:
         args+="--skip-tags ${{ inputs.skip-tags }} "
         
         echo "args: $args"
-        python ${{ github.action_path }}/action.py $args
+        ./${{ github.action_path }}/workflow-ghcr-cleaner $args
