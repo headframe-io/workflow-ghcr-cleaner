@@ -55,21 +55,18 @@ runs:
       with:
         go-version: '1.20'
 
-    - name: Check out action repository
-      uses: actions/checkout@v3
-      with:
-        repository: ${{ github.action_repository }}
-        ref: ${{ github.action_ref }}
-
     - name: Build GHCR Cleaner
       shell: bash
-      run: go build -o workflow-ghcr-cleaner
+      run: |
+        cd "$GITHUB_ACTION_PATH"
+        go build -o ghcr-cleaner
 
     - name: Run GHCR Cleaner
       shell: bash
       run: |
-        chmod +x ./workflow-ghcr-cleaner
-        ./workflow-ghcr-cleaner \
+        cd "$GITHUB_ACTION_PATH"
+        chmod +x ./ghcr-cleaner
+        ./ghcr-cleaner \
           --token "${{ inputs.token }}" \
           --repo-owner "${{ inputs['repository-owner'] }}" \
           --repo-name "${{ inputs['repository-name'] }}" \
