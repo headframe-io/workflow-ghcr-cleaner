@@ -59,7 +59,7 @@ runs:
         python-version: '1.23.2'
 
     - name: Build app
-      run: go mod tidy && go build
+      run: go mod init github.com/headframe-io/workflow-ghcr-cleaner && go mod tidy && go build
       shell: bash
 
     - name: Run registry cleaner
@@ -75,6 +75,6 @@ runs:
         args+="--keep-at-most ${{ inputs.keep-at-most }} "
         args+="--filter-tags ${{ inputs.filter-tags }} "
         args+="--skip-tags ${{ inputs.skip-tags }} "
-        
+
         echo "args: $args"
         ./${{ github.action_path }}/workflow-ghcr-cleaner $args
