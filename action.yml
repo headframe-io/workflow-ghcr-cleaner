@@ -62,9 +62,11 @@ runs:
         ref: ${{ github.action_ref }}
 
     - name: Build GHCR Cleaner
+      shell: bash
       run: go build -o workflow-ghcr-cleaner
 
     - name: Run GHCR Cleaner
+      shell: bash
       run: |
         chmod +x ./workflow-ghcr-cleaner
         ./workflow-ghcr-cleaner \
