@@ -59,7 +59,7 @@ runs:
         python-version: '1.23.2'
 
     - name: Build app
-      run: go build
+      run: go mod tidy && go build
       shell: bash
 
     - name: Run registry cleaner
