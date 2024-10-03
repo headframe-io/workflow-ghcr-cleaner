@@ -44,4 +44,4 @@ fi
 echo "Running with arguments: $*"
 
 # Execute the Go application with the assembled arguments
-exec /usr/local/bin/workflow-ghcr-cleaner "$@"
+exec /workflow-ghcr-cleaner "$@"
