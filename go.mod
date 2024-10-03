@@ -1,3 +1,3 @@
 module github.com/headframe-io/workflow-ghcr-cleaner
 
-go 1.23.1
+go 1.23
